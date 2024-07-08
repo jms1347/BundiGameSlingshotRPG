@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 public class ColorBtnController : MonoBehaviour
 {
+    [Header("ДыБо")]
+    public Image quizImg;
+    public int quizR;
+    public int quizG;
+    public int quizB;
+
     public Image setColorImg;
 
     public Image[] colorTextImg;
@@ -13,10 +19,50 @@ public class ColorBtnController : MonoBehaviour
     public Button[] colorMinusBtn;
     public int[] colorCoefficientIndex;
     public int sumIndex;
-    
+
+
     void Start()
     {
         SetColorBtn();
+
+        SetQuiz();
+    }
+
+    public void CheckColor()
+    {
+        Debug.Log("quizColor : " + quizR + ", " + quizG + ", " + quizB);
+
+        Color32 tempColor = setColorImg.color;
+        Debug.Log("answerColor : " + tempColor.r + ", " + tempColor.g + ", " + tempColor.b);
+        InitColor();
+        SetQuiz();
+       
+    }
+    public void InitColor()
+    {
+        quizImg.color = Color.white;
+        for (int i = 0; i < colorIndexText.Length; i++)
+        {
+            colorIndexText[i].text = "";
+        }
+        for (int i = 0; i < colorMinusBtn.Length; i++)
+        {
+            colorMinusBtn[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < colorCoefficientIndex.Length; i++)
+        {
+            colorCoefficientIndex[i] = 0;
+        }
+        sumIndex = 0;
+
+        ResultColor();
+    }
+    public void SetQuiz()
+    {
+        quizR = Random.Range(0, 256);
+        quizG = Random.Range(0, 256);
+        quizB = Random.Range(0, 256);
+        quizImg.color = new Color32((byte)quizR, (byte)quizG, (byte)quizB, 255);
     }
 
     public void ColorBtn(int pIndex)
@@ -41,6 +87,10 @@ public class ColorBtnController : MonoBehaviour
         if (sumIndex == 0)
         {
             setColorImg.color = Color.white;
+            for (int i = 0; i < colorIndexText.Length; i++)
+            {
+                colorIndexText[i].text = "";
+            }
         }
         else
         {
