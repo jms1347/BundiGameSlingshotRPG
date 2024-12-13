@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
+  m_Name: AddressableAssetSettings
+  m_EditorClassIdentifier: 
+  m_DefaultGroup: c380e42a3ba652542886192b88177652
+  m_currentHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_OptimizeCatalogSize: 0
+  m_BuildRemoteCatalog: 1
+  m_BundleLocalCatalog: 0
+  m_CatalogRequestsTimeout: 0
+  m_DisableCatalogUpdateOnStart: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
+  m_UniqueBundleIds: 1
+  m_NonRecursiveBuilding: 1
+  m_CCDEnabled: 0
+  m_maxConcurrentWebRequests: 3
+  m_ContiguousBundles: 1
+  m_StripUnityVersionFromBundleBuild: 0
+  m_DisableVisibleSubAssetRepresentations: 0
+  m_ShaderBundleNaming: 0
+  m_ShaderBundleCustomNaming: 
+  m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
+  m_MonoScriptBundleCustomNaming: 
+  m_RemoteCatalogBuildPath:
+    m_Id: 202327e0cd4aa994a911e94ffc3b425b
+  m_RemoteCatalogLoadPath:
+    m_Id: 735a089343d9c2142be5c216fa3edcef
+  m_ContentStateBuildPathProfileVariableName: Remote.LoadPath
+  m_CustomContentStateBuildPath: 
+  m_ContentStateBuildPath: 
+  m_BuildAddressablesWithPlayerBuild: 2
+  m_overridePlayerVersion: 1
+  m_GroupAssets:
+  - {fileID: 11400000, guid: ca59ef846d3b8db41989120366a6190d, type: 2}
+  - {fileID: 11400000, guid: e0dfa28f14af29a48bf9b03764d472c9, type: 2}
+  - {fileID: 11400000, guid: 54e0399b3a0a3694d81d985fc6c4ee89, type: 2}
+  - {fileID: 11400000, guid: b9619e914bfb10d49841604d84b7cf99, type: 2}
+  m_BuildSettings:
+    m_CompileScriptsInVirtualMode: 0
+    m_CleanupStreamingAssetsAfterBuilds: 1
+    m_LogResourceManagerExceptions: 1
+    m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+  m_ProfileSettings:
+    m_Profiles:
+    - m_InheritedParent: 
+      m_Id: 3ff6c608db5c8a0458d21b14379d4672
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: 202327e0cd4aa994a911e94ffc3b425b
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 463dce6d81d7e9c40b7bff0810f04bde
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 735a089343d9c2142be5c216fa3edcef
+        m_Value: http://localhost/[BuildTarget]
+      - m_Id: 7515095efb3d86042b9f806246c15346
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 8a3bee6b23fa044408646eeef5f6d065
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 46febaa884f232248b9399263393af11
+      m_ProfileName: Obj
+      m_Values:
+      - m_Id: 202327e0cd4aa994a911e94ffc3b425b
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 463dce6d81d7e9c40b7bff0810f04bde
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 735a089343d9c2142be5c216fa3edcef
+        m_Value: http://share.fairip.synology.me/sample
+      - m_Id: 7515095efb3d86042b9f806246c15346
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 8a3bee6b23fa044408646eeef5f6d065
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+    m_ProfileEntryNames:
+    - m_Id: 202327e0cd4aa994a911e94ffc3b425b
+      m_Name: Remote.BuildPath
+      m_InlineUsage: 0
+    - m_Id: 463dce6d81d7e9c40b7bff0810f04bde
+      m_Name: BuildTarget
+      m_InlineUsage: 0
+    - m_Id: 735a089343d9c2142be5c216fa3edcef
+      m_Name: Remote.LoadPath
+      m_InlineUsage: 0
+    - m_Id: 7515095efb3d86042b9f806246c15346
+      m_Name: Local.BuildPath
+      m_InlineUsage: 0
+    - m_Id: 8a3bee6b23fa044408646eeef5f6d065
+      m_Name: Local.LoadPath
+      m_InlineUsage: 0
+    m_ProfileVersion: 1
+  m_LabelTable:
+    m_LabelNames:
+    - default
+    - Sprite
+    - Sound
+    - Prefab
+    - Mat
+    - Video
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: 481149b1d3494664083c96431f72c4af, type: 2}
+  m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
+  m_ActivePlayerDataBuilderIndex: 3
+  m_DataBuilders:
+  - {fileID: 11400000, guid: 6e14c4d23fbd44248b96c14ed96fe78f, type: 2}
+  - {fileID: 11400000, guid: 3de2d2dba4ad9fd4d948c17400ee7151, type: 2}
+  - {fileID: 11400000, guid: 486dedf296d56804f897d48f91bcbfc3, type: 2}
+  - {fileID: 11400000, guid: 758b5235693a3dc40a31b030a3beac3d, type: 2}
+  m_ActiveProfileId: 46febaa884f232248b9399263393af11
+  m_HostingServicesManager:
+    m_HostingServiceInfos: []
+    m_Settings: {fileID: 11400000}
+    m_NextInstanceId: 0
+    m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000
