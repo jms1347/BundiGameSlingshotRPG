@@ -38,7 +38,7 @@ public class Btn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPo
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.instance.PlaySFXByKey("MouseOver");
+        //SoundManager.instance.PlaySFXByKey("MouseOver");
 
         if (btnType == BtnType.None) return;
 
@@ -64,7 +64,7 @@ public class Btn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SoundManager.instance.PlayUIMByKey("MouseClick");
+        //SoundManager.instance.PlayUIMByKey("MouseClick");
         if (btnType == BtnType.None) return;
 
         if (btnType == BtnType.Spr)
