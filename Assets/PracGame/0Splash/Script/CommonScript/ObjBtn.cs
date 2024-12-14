@@ -67,7 +67,7 @@ public class ObjBtn : MonoBehaviour
         if (isOver) return;
         isOver = true;
 
-        SoundManager.instance.PlaySoundByKey(SoundManager.SoundType.UI, "MouseOver");
+        SoundManager.instance.PlaySFXByKey("MouseOver");
 
         if (btnType == BtnType.None) return;
 
@@ -96,7 +96,7 @@ public class ObjBtn : MonoBehaviour
     {
         if (CheckActiveObj()) return;
 
-        SoundManager.instance.PlaySoundByKey(SoundManager.SoundType.UI, "MouseClick");
+        SoundManager.instance.PlaySFXByKey("MouseClick");
         if (btnType == BtnType.None) return;
 
         if (btnType == BtnType.Spr)
