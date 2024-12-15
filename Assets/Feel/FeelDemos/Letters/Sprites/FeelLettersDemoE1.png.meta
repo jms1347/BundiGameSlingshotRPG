@@ -1533,3 +1533,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 5.1
+  assetPath: Assets/Feel/FeelDemos/Letters/Sprites/FeelLettersDemoE1.png
+  uploadId: 709698

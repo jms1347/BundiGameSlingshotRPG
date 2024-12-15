@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
 	[AddComponentMenu("")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Audio/AudioSource")]
 	[FeedbackHelp("This feedback lets you play a target audio source, with some elements at random.")]
 	public class MMF_AudioSource : MMF_Feedback
@@ -26,7 +28,7 @@ namespace MoreMountains.Feedbacks
 		/// the possible ways to interact with the audiosource
 		public enum Modes { Play, Pause, UnPause, Stop }
 
-		[MMFInspectorGroup("Audiosource", true, 28, true)]
+		[MMFInspectorGroup("Audiosource", true, 5, true)]
 		/// the target audio source to play
 		[Tooltip("the target audio source to play")]
 		public AudioSource TargetAudioSource;

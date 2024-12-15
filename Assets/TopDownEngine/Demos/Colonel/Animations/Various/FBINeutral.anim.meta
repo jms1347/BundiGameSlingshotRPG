@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7a60d5aa17891e547990f8e6d4ad3598
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89636
+  packageName: TopDown Engine
+  packageVersion: 4.2
+  assetPath: Assets/TopDownEngine/Demos/Colonel/Animations/Various/FBINeutral.anim
+  uploadId: 711078

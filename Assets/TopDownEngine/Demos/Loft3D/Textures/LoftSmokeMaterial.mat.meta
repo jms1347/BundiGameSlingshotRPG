@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ee53917f6d76a5e43a6650185ba7b19c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89636
+  packageName: TopDown Engine
+  packageVersion: 4.2
+  assetPath: Assets/TopDownEngine/Demos/Loft3D/Textures/LoftSmokeMaterial.mat
+  uploadId: 711078

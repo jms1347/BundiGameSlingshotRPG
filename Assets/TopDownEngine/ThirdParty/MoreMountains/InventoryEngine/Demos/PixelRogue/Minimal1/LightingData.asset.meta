@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 14cc8f6a4f28cc24eb84deb5d9a9f944
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 89636
+  packageName: TopDown Engine
+  packageVersion: 4.2
+  assetPath: Assets/TopDownEngine/ThirdParty/MoreMountains/InventoryEngine/Demos/PixelRogue/Minimal1/LightingData.asset
+  uploadId: 711078

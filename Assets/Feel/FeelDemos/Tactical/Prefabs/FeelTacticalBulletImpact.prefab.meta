@@ -5,3 +5,10 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 5.1
+  assetPath: Assets/Feel/FeelDemos/Tactical/Prefabs/FeelTacticalBulletImpact.prefab
+  uploadId: 709698

@@ -105,3 +105,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 5.1
+  assetPath: Assets/Feel/FeelDemos/Tactical/Models/FeelTacticalAssaultRifle.fbx
+  uploadId: 709698

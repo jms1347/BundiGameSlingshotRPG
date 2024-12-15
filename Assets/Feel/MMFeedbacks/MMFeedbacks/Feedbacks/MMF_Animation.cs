@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -9,6 +10,7 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will allow you to send to an animator (bound in its inspector) a bool, int, float or trigger parameter, allowing you to trigger an animation, with or without randomness.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("Animation/Animation Parameter")]
 	public class MMF_Animation : MMF_Feedback 
 	{
@@ -146,6 +148,19 @@ namespace MoreMountains.Feedbacks
 		[MMFEnumCondition("FloatValueMode", (int)ValueModes.Incremental)]
 		public float FloatIncrement = 1;
 
+		[MMFInspectorGroup("Layer Weights", true, 22)]
+		/// whether or not to set layer weights on the specified layer when playing this feedback
+		[Tooltip("whether or not to set layer weights on the specified layer when playing this feedback")]
+		public bool SetLayerWeight = false;
+		/// the index of the layer to target when changing layer weights
+		[Tooltip("the index of the layer to target when changing layer weights")]
+		[MMFCondition("SetLayerWeight", true)]
+		public int TargetLayerIndex = 1;
+		/// the new weight to set on the target animator layer
+		[Tooltip("the new weight to set on the target animator layer")]
+		[MMFCondition("SetLayerWeight", true)]
+		public float NewWeight = 0.5f;
+
 		protected int _triggerParameter;
 		protected int _boolParameter;
 		protected int _intParameter;
@@ -278,6 +293,11 @@ namespace MoreMountains.Feedbacks
 					float randomValue = Random.Range(FloatValueMin, FloatValueMax) * intensityMultiplier;
 					targetAnimator.SetFloat(_floatParameter, randomValue);
 					break;
+			}
+
+			if (SetLayerWeight)
+			{
+				targetAnimator.SetLayerWeight(TargetLayerIndex, NewWeight);
 			}
 		}
         

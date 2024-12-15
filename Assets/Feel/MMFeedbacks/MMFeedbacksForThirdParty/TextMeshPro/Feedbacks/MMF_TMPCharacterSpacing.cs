@@ -1,8 +1,9 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
-#if MM_TEXTMESHPRO
+#if (MM_TEXTMESHPRO || MM_UGUI2)
 using TMPro;
 #endif
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,9 +12,10 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you control the character spacing of a target TMP over time.")]
-	#if MM_TEXTMESHPRO
+	#if (MM_TEXTMESHPRO || MM_UGUI2)
 	[FeedbackPath("TextMesh Pro/TMP Character Spacing")]
 	#endif
+	[MovedFrom(false, null, "MoreMountains.Feedbacks.TextMeshPro")]
 	public class MMF_TMPCharacterSpacing : MMF_FeedbackBase
 	{
 		/// sets the inspector color for this feedback
@@ -22,13 +24,14 @@ namespace MoreMountains.Feedbacks
 		public override string RequiresSetupText { get { return "This feedback requires that a TargetTMPText be set to be able to work properly. You can set one below."; } }
 		#endif
         
-		#if UNITY_EDITOR && MM_TEXTMESHPRO
+		#if UNITY_EDITOR && (MM_TEXTMESHPRO || MM_UGUI2)
 		public override bool EvaluateRequiresSetup() { return (TargetTMPText == null); }
 		public override string RequiredTargetText { get { return TargetTMPText != null ? TargetTMPText.name : "";  } }
 		#endif
         
-		#if MM_TEXTMESHPRO
+		#if (MM_TEXTMESHPRO || MM_UGUI2)
 		public override bool HasAutomatedTargetAcquisition => true;
+		public override bool CanForceInitialValue => true;
 		protected override void AutomateTargetAcquisition() => TargetTMPText = FindAutomatedTarget<TMP_Text>();
 		
 		[MMFInspectorGroup("Target", true, 12, true)]
@@ -57,7 +60,7 @@ namespace MoreMountains.Feedbacks
         
 		protected override void FillTargets()
 		{
-			#if MM_TEXTMESHPRO
+			#if (MM_TEXTMESHPRO || MM_UGUI2)
 			if (TargetTMPText == null)
 			{
 				return;

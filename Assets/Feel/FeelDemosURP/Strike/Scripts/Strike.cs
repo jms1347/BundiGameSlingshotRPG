@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
+#if MM_UI
 using UnityEngine.UI;
 
 namespace MoreMountains.Feel
@@ -27,6 +28,7 @@ namespace MoreMountains.Feel
 	/// An example class part of the Feel demos
 	/// This class handles the strike demo, detecting input and applying force to the ball
 	/// </summary>
+	[AddComponentMenu("")]
 	public class Strike : MonoBehaviour
 	{
 		[Header("Input")]
@@ -317,3 +319,4 @@ namespace MoreMountains.Feel
 		}
 	}
 }
+#endif

@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 183370
+  packageName: Feel
+  packageVersion: 5.1
+  assetPath: Assets/Feel/NiceVibrations/Demo/DemoAssets/BallDemo/HitAnimation.anim
+  uploadId: 709698

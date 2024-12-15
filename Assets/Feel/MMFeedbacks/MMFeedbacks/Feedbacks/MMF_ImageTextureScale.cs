@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
+#if MM_UI
 using UnityEngine.UI;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -12,6 +14,7 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback will let you control the texture scale of a target UI Image over time.")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
 	[FeedbackPath("UI/Image Texture Scale")]
 	public class MMF_ImageTextureScale : MMF_Feedback
 	{
@@ -63,13 +66,15 @@ namespace MoreMountains.Feedbacks
 		[Tooltip("the curve to tween the scale on")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
 		public AnimationCurve ScaleCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.3f, 1f), new Keyframe(1, 0));
-		/// the value to remap the scale curve's 0 to
-		[Tooltip("the value to remap the scale curve's 0 to")]
+		/// the value to remap the scale curve's 0 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness
+		[Tooltip("the value to remap the scale curve's 0 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
+		[MMFVector("Min", "Max")]
 		public Vector2 RemapZero = Vector2.zero;
-		/// the value to remap the scale curve's 1 to
-		[Tooltip("the value to remap the scale curve's 1 to")]
+		/// the value to remap the scale curve's 1 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness
+		[Tooltip("the value to remap the scale curve's 1 to, randomized between its min and max - put the same value in both min and max if you don't want any randomness")]
 		[MMFEnumCondition("Mode", (int)Modes.OverTime)]
+		[MMFVector("Min", "Max")]
 		public Vector2 RemapOne = Vector2.one;
 		/// the value to move the intensity to in instant mode
 		[Tooltip("the value to move the intensity to in instant mode")]
@@ -122,13 +127,21 @@ namespace MoreMountains.Feedbacks
 			switch (Mode)
 			{
 				case Modes.Instant:
-					ApplyValue(InstantScale * intensityMultiplier);
+					if (NormalPlayDirection)
+					{
+						ApplyValue(InstantScale * intensityMultiplier);	
+					}
+					else
+					{
+						ApplyValue(_initialValue);
+					}
 					break;
 				case Modes.OverTime:
 					if (!AllowAdditivePlays && (_coroutine != null))
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(TransitionCo(intensityMultiplier));
 					break;
 			}
@@ -209,3 +222,4 @@ namespace MoreMountains.Feedbacks
 		}
 	}
 }
+#endif

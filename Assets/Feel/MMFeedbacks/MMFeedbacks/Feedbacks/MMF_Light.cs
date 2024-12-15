@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 namespace MoreMountains.Feedbacks
 {
@@ -11,7 +12,8 @@ namespace MoreMountains.Feedbacks
 	/// </summary>
 	[AddComponentMenu("")]
 	[FeedbackHelp("This feedback lets you control the color and intensity of a Light in your scene for a certain duration (or instantly).")]
-	[FeedbackPath("Light")]
+	[MovedFrom(false, null, "MoreMountains.Feedbacks")]
+	[FeedbackPath("Lights/Light")]
 	public class MMF_Light : MMF_Feedback
 	{
 		/// a static bool used to disable all feedbacks of this type at once
@@ -174,8 +176,9 @@ namespace MoreMountains.Feedbacks
 		protected float _initialRange;
 		protected float _initialShadowStrength;
 		protected float _initialIntensity;
-		protected Coroutine _coroutine;
 		protected Color _initialColor;
+		
+		protected Coroutine _coroutine;
 		protected Color _targetColor;
 
 		/// <summary>
@@ -235,12 +238,12 @@ namespace MoreMountains.Feedbacks
 			switch (Mode)
 			{
 				case Modes.Instant:
-					BoundLight.intensity = InstantIntensity * intensityMultiplier;
-					BoundLight.shadowStrength = InstantShadowStrength;
-					BoundLight.range = InstantRange;
+					BoundLight.intensity = NormalPlayDirection ? InstantIntensity * intensityMultiplier : _initialIntensity;
+					BoundLight.shadowStrength = NormalPlayDirection ? InstantShadowStrength : _initialShadowStrength;
+					BoundLight.range = NormalPlayDirection ? InstantRange : _initialRange;
 					if (ModifyColor)
 					{
-						BoundLight.color = InstantColor;
+						BoundLight.color = NormalPlayDirection ? InstantColor : _initialColor;
 					}                        
 					break;
 				case Modes.OverTime:
@@ -249,6 +252,7 @@ namespace MoreMountains.Feedbacks
 					{
 						return;
 					}
+					if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 					_coroutine = Owner.StartCoroutine(LightSequence(intensityMultiplier));
 					break;
 				case Modes.ShakerEvent:

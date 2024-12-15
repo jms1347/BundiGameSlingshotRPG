@@ -150,6 +150,7 @@ namespace MoreMountains.Feedbacks
 						{
 							return;
 						}
+						if (_coroutine != null) { Owner.StopCoroutine(_coroutine); }
 						_coroutine = Owner.StartCoroutine(UpdateValueSequence(feedbacksIntensity, position));
 						break;
 				}
@@ -168,7 +169,8 @@ namespace MoreMountains.Feedbacks
 
 			foreach (MMF_FeedbackBaseTarget target in _targets)
 			{
-				target.Target.SetLevel(target.InstantLevel);
+				float newLevel = NormalPlayDirection ? target.InstantLevel : target.InitialLevel; 
+				target.Target.SetLevel(newLevel);
 			}
 		}
 

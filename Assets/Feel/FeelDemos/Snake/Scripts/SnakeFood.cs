@@ -10,6 +10,7 @@ namespace MoreMountains.Feel
 	/// <summary>
 	/// This class handles Feel's Snake demo's food objects, that the snake has to eat to score points
 	/// </summary>
+	[AddComponentMenu("")]
 	public class SnakeFood : MonoBehaviour
 	{
 		/// a duration (in seconds) during which the food is inactive before moving it to another position
