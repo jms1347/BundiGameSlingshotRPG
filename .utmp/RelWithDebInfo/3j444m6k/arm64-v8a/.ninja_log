@@ -1,0 +1,10 @@
+# ninja log v5
+12	1282	7586264451632593	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	81f40c834f369672
+9	1304	7586264451891904	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	af1168fb9469ba58
+1	1313	7586264451986788	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	69e1de1cd120c797
+22	1341	7586264452256062	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c84a8a81580021ad
+18	1435	7586264453149460	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	e205f6c9093f9495
+6	1510	7586264453954888	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	98cc3efd436d7e39
+15	1721	7586264456043047	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	90a4f5078af26345
+4	1871	7586264457633146	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	d784fd85a400ef44
+1872	2041	7586264459034714	D:/github/BundiGameSlingshotRPG/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3j444m6k/obj/arm64-v8a/libgame.so	5ec2af7818413a30
