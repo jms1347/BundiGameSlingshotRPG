@@ -22,6 +22,10 @@ public class JoystickController : MonoBehaviour
     public float attackRange = 1.5f; // 적의 공격 범위
 
     private float[] enemyAttackTimers;
+    private float autoAttackTimer = 0f;
+    public float autoAttackInterval = 2f;
+
+    private bool isFlying = false;
 
     void Start()
     {
@@ -52,55 +56,70 @@ public class JoystickController : MonoBehaviour
     {
         HandleJoystickInput();
         HandleEnemies();
+        HandleAutoAttack();
     }
 
-    private void HandleJoystickInput()
+private void HandleJoystickInput()
+{
+    bool isTouching = false;
+    Vector2 touchPosition = Vector2.zero;
+
+    // 터치 입력 처리
+    if (Input.touchCount > 0)
     {
-        bool isTouching = false;
-        Vector2 touchPosition = Vector2.zero;
+        Touch touch = Input.GetTouch(0);
+        touchPosition = touch.position;
 
-        // 터치 입력 처리
-        if (Input.touchCount > 0)
+        switch (touch.phase)
         {
-            Touch touch = Input.GetTouch(0);
-            touchPosition = touch.position;
-
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    OnTouchStart(touchPosition);
-                    break;
-                case TouchPhase.Moved:
-                case TouchPhase.Stationary:
-                    OnTouchMove(touchPosition);
-                    break;
-                case TouchPhase.Ended:
-                case TouchPhase.Canceled:
-                    OnTouchEnd();
-                    break;
-            }
-            isTouching = true;
-        }
-
-        // 마우스 입력 처리 (에디터 및 PC 환경)
-        if (!isTouching)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                touchPosition = Input.mousePosition;
+            case TouchPhase.Began:
                 OnTouchStart(touchPosition);
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                touchPosition = Input.mousePosition;
+                break;
+            case TouchPhase.Moved:
+            case TouchPhase.Stationary:
                 OnTouchMove(touchPosition);
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
+                break;
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
                 OnTouchEnd();
-            }
+                break;
+        }
+        isTouching = true;
+    }
+
+    // 마우스 입력 처리 (에디터 및 PC 환경)
+    if (!isTouching)
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchPosition = Input.mousePosition;
+            OnTouchStart(touchPosition);
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            touchPosition = Input.mousePosition;
+            OnTouchMove(touchPosition);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            OnTouchEnd();
         }
     }
+
+    // 비행 중 방향 고정
+    if (isFlying)
+    {
+        Vector3 velocity = characterRigidbody.linearVelocity;
+        if (velocity.magnitude > 0.1f) // 일정 속도 이상일 때만 방향 업데이트
+        {
+            character.forward = velocity.normalized;
+        }
+        else
+        {
+            isFlying = false; // 속도가 낮아지면 비행 상태 해제
+        }
+    }
+}
 
     private void OnTouchStart(Vector2 position)
     {
@@ -148,6 +167,7 @@ public class JoystickController : MonoBehaviour
         float force = chargeSlider.value * maxForce;
         Vector3 launchDirection = character.forward * force;
         characterRigidbody.AddForce(launchDirection, ForceMode.Impulse);
+        isFlying = true;
     }
 
     private void HandleEnemies()
@@ -177,6 +197,31 @@ public class JoystickController : MonoBehaviour
                 {
                     AttackPlayer(enemy);
                     enemyAttackTimers[i] = enemyAttackInterval;
+                }
+            }
+        }
+    }
+
+    private void HandleAutoAttack()
+    {
+        autoAttackTimer -= Time.deltaTime;
+        if (autoAttackTimer <= 0f && !isFlying && !Input.GetMouseButton(0) && Input.touchCount == 0)
+        {
+            foreach (Transform enemy in enemies)
+            {
+                if (enemy != null && Vector3.Distance(character.position, enemy.position) <= attackRange)
+                {
+                    // 캐릭터가 적을 바라보게 설정
+                    Vector3 directionToEnemy = (enemy.position - character.position).normalized;
+                    if (directionToEnemy.magnitude > 0.1f)
+                    {
+                        character.forward = directionToEnemy;
+                    }
+
+                    // 공격 애니메이션 트리거
+                    characterAnimator.SetTrigger("Attack");
+                    autoAttackTimer = autoAttackInterval;
+                    break;
                 }
             }
         }
