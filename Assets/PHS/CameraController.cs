@@ -1,72 +1,77 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player;                       // ÇÃ·¹ÀÌ¾î¸¦ µû¶ó°¥ ´ë»ó
-    public Vector3 offset = new Vector3(0, 10, -10); // Ä«¸Ş¶ó¿Í ÇÃ·¹ÀÌ¾î °£ ¿ÀÇÁ¼Â
-    public float followSpeed = 5f;                   // ÇÃ·¹ÀÌ¾î µû¶ó°¡´Â ¼Óµµ
+    [Header("Follow Settings")]
+    public Transform player;
+    public Vector3 offset = new Vector3(0, 10, -10);
+    public float smoothSpeed = 0.125f;
 
-    public float defaultFOV = 60f;                   // ±âº» FOV
-    public float chargingFOV = 80f;                  // Â÷Â¡ ½Ã FOV
-    public float fovTransitionSpeed = 5f;            // FOV ÀüÈ¯ ¼Óµµ
+    [Header("FOV Settings")]
+    public float defaultFOV = 60f;    // ê¸°ë³¸ ì‹œì•¼ê°
+    public float midFOV = 65f;        // ìŠ¬ë§ìƒ· ê²Œì´ì§€(ì¼ë°˜)ê°€ ìµœëŒ€ì¼ ë•Œ ë„ë‹¬í•˜ëŠ” ì‹œì•¼ê°
+    public float chargingFOV = 80f;   // ì°¨ì§• ê²Œì´ì§€(ì¶”ê°€)ê°€ ìµœëŒ€ì¼ ë•Œ ë„ë‹¬í•˜ëŠ” ì‹œì•¼ê°
+    public float fovLerpSpeed = 5f;   // FOV ë³´ê°„ ì†ë„
+
+    [Header("UI Camera")]
+    public Camera uiCamera;         // UIì— ì‚¬ìš©í•˜ëŠ” ì¹´ë©”ë¼ (Perspective ëª¨ë“œì—¬ì•¼ í•¨)
 
     private Camera mainCamera;
-    public Camera uiCamera;                        // Inspector¿¡¼­ ÇÒ´çÇÒ UI Ä«¸Ş¶ó
-
-    private bool isCharging = false;
+    private float slingshotRatio = 0f;         // 0~1, ìŠ¬ë§ìƒ· ê²Œì´ì§€ ë¹„ìœ¨
+    private float additionalChargeRatio = 0f;   // 0~1, ì¶”ê°€ ì°¨ì§• ê²Œì´ì§€ ë¹„ìœ¨
 
     void Start()
     {
-        // ¸ŞÀÎ Ä«¸Ş¶ó¸¦ ÅÂ±×¸¦ ÅëÇØ Ã£À½
         mainCamera = Camera.main;
-
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main Camera not found! Please ensure the main camera is tagged as 'MainCamera'.");
-        }
-
-        // UI Ä«¸Ş¶ó ÃÊ±âÈ­: ¸ŞÀÎ Ä«¸Ş¶ó¿Í °°Àº FOV·Î ¼³Á¤
+        if (mainCamera != null)
+            mainCamera.fieldOfView = defaultFOV;
         if (uiCamera != null)
-        {
-            uiCamera.fieldOfView = mainCamera.fieldOfView;
-        }
+            uiCamera.fieldOfView = defaultFOV;
     }
 
     void LateUpdate()
     {
-        FollowPlayer();
-        AdjustFOV();
-    }
-
-    private void FollowPlayer()
-    {
         if (player != null)
         {
-            Vector3 targetPosition = player.position + offset;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
+            Vector3 desiredPos = player.position + offset;
+            Vector3 smoothedPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+            transform.position = smoothedPos;
         }
-    }
 
-    private void AdjustFOV()
-    {
+        // ë¨¼ì € ìŠ¬ë§ìƒ· ê²Œì´ì§€ì— ë”°ë¼ ê¸°ë³¸ FOVì—ì„œ ì¤‘ê°„ FOVë¡œ ë³´ê°„
+        float targetFOV = Mathf.Lerp(defaultFOV, midFOV, slingshotRatio);
+        // ê·¸ í›„, ì¶”ê°€ ì°¨ì§• ê²Œì´ì§€ì— ë”°ë¼ ì¤‘ê°„ FOVì—ì„œ chargingFOVê¹Œì§€ ë³´ê°„
+        // ë‹¨, ì¶”ê°€ ì°¨ì§• ë¹„ìœ¨ì€ ìµœëŒ€ 0.75ê¹Œì§€ ë°˜ì˜ (ì˜ˆ: ê²Œì´ì§€ ìµœëŒ€ì¹˜ì˜ 2/3ê¹Œì§€)
+        float effectiveAdditional = Mathf.Clamp(additionalChargeRatio, 0f, 0.75f);
+        targetFOV = Mathf.Lerp(targetFOV, chargingFOV, effectiveAdditional);
+
         if (mainCamera != null)
-        {
-            // Â÷Â¡ ¿©ºÎ¿¡ µû¶ó ¸ñÇ¥ FOV °áÁ¤
-            float targetFOV = isCharging ? chargingFOV : defaultFOV;
-            // ¸ŞÀÎ Ä«¸Ş¶óÀÇ FOV¸¦ ºÎµå·´°Ô º¯°æ
-            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime * fovTransitionSpeed);
-
-            // UI Ä«¸Ş¶ó°¡ ÇÒ´çµÇ¾î ÀÖ´Ù¸é ¸ŞÀÎ Ä«¸Ş¶ó¿Í µ¿ÀÏÇÑ FOV °ªÀ¸·Î µ¿±âÈ­
-            if (uiCamera != null)
-            {
-                uiCamera.fieldOfView = mainCamera.fieldOfView;
-            }
-        }
+            mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime * fovLerpSpeed);
+        if (uiCamera != null)
+            uiCamera.fieldOfView = mainCamera.fieldOfView;
     }
 
-    // ¿ÜºÎ¿¡¼­ Â÷Â¡ »óÅÂ¸¦ º¯°æÇÒ ¼ö ÀÖµµ·Ï ÇÏ´Â ¸Ş¼­µå
+    // ìŠ¬ë§ìƒ· ê²Œì´ì§€ ë¹„ìœ¨ ì„¤ì • (0~1)
+    public void SetSlingshotRatio(float ratio)
+    {
+        slingshotRatio = Mathf.Clamp01(ratio);
+    }
+
+    // ì¶”ê°€ ì°¨ì§• ê²Œì´ì§€ ë¹„ìœ¨ ì„¤ì • (0~1)
+    public void SetAdditionalChargeRatio(float ratio)
+    {
+        additionalChargeRatio = Mathf.Clamp01(ratio);
+    }
+
+    public void ResetChargeRatio()
+    {
+        slingshotRatio = 0f;
+        additionalChargeRatio = 0f;
+    }
+
     public void SetCharging(bool charging)
     {
-        isCharging = charging;
+        if (!charging)
+            ResetChargeRatio();
     }
 }
