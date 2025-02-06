@@ -243,7 +243,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1055,7 +1055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &227482770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 277, y: 277}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227482771
 MonoBehaviour:
@@ -1764,7 +1764,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 172, y: 172}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &371900021
 MonoBehaviour:
@@ -2752,11 +2752,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17078b16ac69bc4584ff7e80f8e4fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 1.5
-  speed: 2
-  attackInterval: 5
-  knockbackForce: 15
   player: {fileID: 807300965}
+  speed: 2
+  attackRange: 1.5
+  knockbackForce: 10
+  knockbackResistance: 1
 --- !u!1001 &558122599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3815,8 +3815,8 @@ GameObject:
   - component: {fileID: 807300966}
   - component: {fileID: 807300967}
   - component: {fileID: 807300968}
-  - component: {fileID: 807300969}
   - component: {fileID: 807300970}
+  - component: {fileID: 807300971}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3907,37 +3907,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &807300969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 807300964}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2382265fbd497734197c6d63e1206c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystickUI: {fileID: 227482769}
-  handle: {fileID: 371900020}
-  chargeSlider: {fileID: 1048542927}
-  maxDragDistance: 200
-  maxForce: 20
-  knockbackForce: 30
-  playerKnockbackForce: 20
-  character: {fileID: 807300965}
-  characterAnimator: {fileID: 1952286579}
-  enemies:
-  - {fileID: 553411187}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyAttackInterval: 5
-  enemySpeed: 2
-  attackRange: 1.5
-  autoAttackInterval: 2
 --- !u!114 &807300970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3954,17 +3923,32 @@ MonoBehaviour:
   handle: {fileID: 371900020}
   slingShotSlider: {fileID: 1048542927}
   chargingSlider: {fileID: 1809872415}
-  maxDragDistance: 350
+  maxDragDistance: 250
   maxForce: 15
-  maxExtraChargeDuration: 3
-  extraMultiplierMax: 0.5
-  specialAttackThreshold: 3
-  specialCountdownDuration: 3
+  maxExtraChargeDuration: 1
+  extraMultiplierMax: 1
+  specialAttackThreshold: 1
+  specialCountdownDuration: 1
   rotationDummy: {fileID: 1056436658}
   character: {fileID: 807300965}
   characterAnimator: {fileID: 1952286579}
   touchCooldown: 0.2
   specialAttack: {fileID: 0}
+--- !u!114 &807300971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807300964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc391a48e3d1cf4a986e1a716c4fcd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPower: 10
+  knockbackPower: 1
+  baseKnockbackForce: 10
 --- !u!1 &815639696
 GameObject:
   m_ObjectHideFlags: 0
@@ -7179,7 +7163,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30
+  field of view: 40
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -7273,9 +7257,9 @@ MonoBehaviour:
   player: {fileID: 807300965}
   offset: {x: 0, y: 24.5, z: -12.3}
   smoothSpeed: 0.125
-  defaultFOV: 30
-  midFOV: 35
-  chargingFOV: 45
+  defaultFOV: 40
+  midFOV: 45
+  chargingFOV: 55
   fovLerpSpeed: 5
   uiCamera: {fileID: 30161914}
 --- !u!1001 &1787557545
