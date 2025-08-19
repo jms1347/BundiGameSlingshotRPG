@@ -35,14 +35,6 @@ public enum GoodsType
     Token = 2,
     ActionCoin = 3
 }
-public enum FlowerType
-{
-    None = 0,   //데코
-    Rose = 1,
-    Hydrangea = 2,
-    Tulip = 3,
-    Pansy = 4
-}
 public class Item
 {
     public int itemCode;
@@ -67,12 +59,8 @@ public enum ColorType
     Black = 8
 }
 
-public class Flower
+public class CottenCandy
 {
-    public int flowerCode;
-    public string flowerNameKey;
-    public FlowerType flowerType;
-
     //성장에 필요한 변수들 추가될 예정
     public int needWaterCnt;    //물이 필요한 횟수
     public float needGrowTime;  //성장에 필요한 시간

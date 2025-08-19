@@ -24,7 +24,7 @@ public class PopupFade : MonoBehaviour
 
     public void OpenPopup()
     {
-        SoundManager.instance.PlayCreateSfx(SoundManager.SoundType.Sfx, "FadePop");
+        SoundManager.Instance.PlayCreateSfx(SoundManager.SoundType.Sfx, "FadePop");
 
         canvasGroup.alpha = 0; // 초기 투명도 설정
 
@@ -34,7 +34,7 @@ public class PopupFade : MonoBehaviour
 
     public void ClosePopup()
     {
-        SoundManager.instance.PlayCreateSfx(SoundManager.SoundType.Sfx, "PopupClose");
+        SoundManager.Instance.PlayCreateSfx(SoundManager.SoundType.Sfx, "PopupClose");
 
         canvasGroup.DOFade(0, duration).SetEase(Ease.InQuad).OnComplete(() => {
             this.gameObject.SetActive(false);

@@ -47,3 +47,7 @@ MonoBehaviour:
   googlesheetManagerPrefab: {fileID: 3034103495671089719, guid: e24f11da0bbce1c4086cd3fdd0dd642a, type: 3}
   translationManagerPrefab: {fileID: 3289968016105114732, guid: 25a509776e6fb4442b9ec5a7c6196e55, type: 3}
   soundManagerPrefab: {fileID: 2756719725372811448, guid: 31d7fbabcccc5b444bbb81b68cb19b90, type: 3}
+  fadeManagerPrefab: {fileID: 7840628809852906408, guid: fbe896cf27fb0aa46ae75e7f8da8c7fb, type: 3}
+  popupManagerPrefab: {fileID: 1378398402657687728, guid: b87467c136d487d468070ae763336e19, type: 3}
+  commandInvokerPefab: {fileID: 7396515116067067526, guid: 25f071903e2cfad4696e68f9b6acad22, type: 3}
+  InputManagerPefab: {fileID: 5536900036384487042, guid: a0c22573aeffaa748844de853fd86924, type: 3}

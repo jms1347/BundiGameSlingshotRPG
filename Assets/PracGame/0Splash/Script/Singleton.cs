@@ -2,13 +2,13 @@
 
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-	public static T instance;
+	public static T Instance;
 	public static void Load(GameObject SingletonPrefab)
 	{
-		if (instance == null)
+		if (Instance == null)
 		{
 			GameObject NewGameObject = Instantiate(SingletonPrefab);
-			instance = NewGameObject.GetComponent<T>();
+			Instance = NewGameObject.GetComponent<T>();
 			DontDestroyOnLoad(NewGameObject);
 		}
 	}

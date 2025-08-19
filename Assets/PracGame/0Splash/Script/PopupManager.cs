@@ -3,44 +3,35 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class PopupPrefab
+{
+    public string popupKey;
+    public GameObject popup;
+}
+
+
+public class PopupData
+{
+    public string titleStr;
+    public string contentStr;
+    public string oneBtnStr;
+    public string twoBtnStr;
+}
+
 public class PopupManager : Singleton<PopupManager>
 {
     [Header("기본 메시지 팝업")]
-    public GameObject popupPrefab; // Inspector에서 할당
+    public List<PopupPrefab> popupPrefabList; // Inspector에서 할당
     public Transform popupParent;
     public GameObject finalOpenPop;
 
-    [SerializeField] private List<Popup> popupList = new List<Popup>();
+    [SerializeField] private List<Popup> onePopupList = new List<Popup>();
+    [SerializeField] private List<Popup> twoPopupList = new List<Popup>();
 
     [Header("툴팁")]
     [SerializeField] private List<Tooltip> tooltipList = new List<Tooltip>();
 
-    [Header("셋업 팝업")]
-    public GameObject setupPopup;
-    public GameObject setupPop;
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        OnOffSetUpPopup();
-    //    }
-    //}
-
-    #region 셋업 관련 함수
-    public void OnOffSetUpPopup()
-    {
-        if (setupPopup.activeSelf)
-        {
-            //활성상태면
-            CloseAni(setupPopup, setupPop);
-        }
-        else
-        {
-            OpenAni(setupPopup, setupPop);
-        }
-    }
-    #endregion
 
     #region 팝업 관련 함수
     public void InitPopupList()
@@ -48,56 +39,94 @@ public class PopupManager : Singleton<PopupManager>
         CloseAllPopup();
     }
 
-    public void OpenPopup(string pContent, float pActiveTime, Sprite pIcon = null)
+    //예시
+    public void ExPopupOpen()
     {
-        for (int i = 0; i < popupList.Count; i++)
+        PopupData tempData = new PopupData();
+        tempData.titleStr = "입력한 데이터가 초기화됩니다.";
+        tempData.contentStr = "초기화 된 데이터는 복구할 수 없어요.";
+        tempData.oneBtnStr = "취소";
+        tempData.twoBtnStr = "확인";
+
+        PopupManager.Instance.OpenPopup(tempData, () => { }, () => { });
+    }
+    #region SetPopup 종류
+
+    public void OpenPopup(PopupData pData, Action OneBtnFun)
+    {
+        for (int i = 0; i < onePopupList.Count; i++)
         {
-            if (!popupList[i].gameObject.activeSelf)
+            if (!onePopupList[i].gameObject.activeSelf)
             {
-                finalOpenPop = popupList[i].gameObject;
-                popupList[i].OpenPopup(pContent, pActiveTime, pIcon);
-                popupList[i].transform.SetAsLastSibling();
+                finalOpenPop = onePopupList[i].gameObject;
+                onePopupList[i].SetPopup(pData.titleStr, pData.contentStr, OneBtnFun);
+                onePopupList[i].transform.SetAsLastSibling();
                 break;
             }
         }
     }
-    public void OpenPopup(string pContent, int pBtnCnt, Action OneBtnFun, Action TwoBtnFun, Sprite pIcon = null)
+    public void OpenPopup(PopupData pData, Action OneBtnFun, Action TwoBtnFun)
     {
-        for (int i = 0; i < popupList.Count; i++)
+        for (int i = 0; i < twoPopupList.Count; i++)
         {
-            if (!popupList[i].gameObject.activeSelf)
+            if (!twoPopupList[i].gameObject.activeSelf)
             {
-                finalOpenPop = popupList[i].gameObject;
-                popupList[i].OpenPopup(pContent, pBtnCnt, OneBtnFun, TwoBtnFun, pIcon);
-                popupList[i].transform.SetAsLastSibling();
+                finalOpenPop = twoPopupList[i].gameObject;
+                twoPopupList[i].SetPopup(pData.titleStr, pData.contentStr, OneBtnFun, TwoBtnFun);
+                twoPopupList[i].transform.SetAsLastSibling();
                 break;
             }
         }
     }
-    public void OpenPopup(string pContent, Action OneBtnFun, Action TwoBtnFun, Sprite pIcon = null)
+
+    // 2버튼 팝업 세팅
+    public void OpenPopup(string pTitle, string pContent, Action OneBtnFun, Action TwoBtnFun)
     {
-        for (int i = 0; i < popupList.Count; i++)
+        for (int i = 0; i < twoPopupList.Count; i++)
         {
-            if (!popupList[i].gameObject.activeSelf)
+            if (!twoPopupList[i].gameObject.activeSelf)
             {
-                finalOpenPop = popupList[i].gameObject;
-                popupList[i].OpenPopup(pContent, OneBtnFun, TwoBtnFun, pIcon);
-                popupList[i].transform.SetAsLastSibling();
+                finalOpenPop = twoPopupList[i].gameObject;
+                twoPopupList[i].SetPopup(pTitle, pContent, OneBtnFun, TwoBtnFun);
+                twoPopupList[i].transform.SetAsLastSibling();
                 break;
             }
         }
     }
+
+    //1버튼 팝업 세팅
+    public void OpenPopup(string pTitle, string pContent, Action OneBtnFun)
+    {
+        for (int i = 0; i < onePopupList.Count; i++)
+        {
+            if (!onePopupList[i].gameObject.activeSelf)
+            {
+                finalOpenPop = onePopupList[i].gameObject;
+                onePopupList[i].SetPopup(pTitle, pContent, OneBtnFun);
+                onePopupList[i].transform.SetAsLastSibling();
+                break;
+            }
+        }
+    }
+    #endregion
     #region 전체 팝업 닫기
     public void CloseAllPopup()
     {
-        for (int i = 0; i < popupList.Count; i++)
+        //열린것만 닫게하려면 열때마다 스택이나 큐에 보관해야될 듯
+        for (int i = 0; i < onePopupList.Count; i++)
         {
-            popupList[i].ClosePopup();
+            onePopupList[i].ClosePopup();
+        }
+        for (int i = 0; i < twoPopupList.Count; i++)
+        {
+            twoPopupList[i].ClosePopup();
         }
     }
 
     public void CloseFinalPopup()
     {
+        //열린 순으로 닫게하려면 열때마다 스택이나 큐에 보관해야될 듯 (일단 마지막 것만 관리)
+
         finalOpenPop?.SetActive(false);
         finalOpenPop = null;
     }

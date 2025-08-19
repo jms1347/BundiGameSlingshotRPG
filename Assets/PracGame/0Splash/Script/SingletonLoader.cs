@@ -7,6 +7,8 @@ public class SingletonLoader : MonoBehaviour
 	public GameObject soundManagerPrefab;
 	public GameObject fadeManagerPrefab;
 	public GameObject popupManagerPrefab;
+	public GameObject commandInvokerPefab;
+	public GameObject InputManagerPefab;
 	void Awake()
 	{
 		GoogleSheetManager.Load(googlesheetManagerPrefab);
@@ -14,5 +16,7 @@ public class SingletonLoader : MonoBehaviour
 		SoundManager.Load(soundManagerPrefab);
 		FadeManager.Load(fadeManagerPrefab);
 		PopupManager.Load(popupManagerPrefab);
+		CommandInvoker.Load(commandInvokerPefab);
+		InputManager.Load(InputManagerPefab);
 	}
 }

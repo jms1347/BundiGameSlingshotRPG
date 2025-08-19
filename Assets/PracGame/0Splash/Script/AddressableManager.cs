@@ -114,7 +114,7 @@ public class AddressableManager : MonoBehaviour
             {
                 // 캐싱하거나 필요한 작업 수행
                 Debug.Log("로드된 자산: " + asset.name);
-                SoundManager.instance.AddAudioClip(asset.name, asset);
+                SoundManager.Instance.AddAudioClip(asset.name, asset);
             }
         });
     }
@@ -201,7 +201,7 @@ public class AddressableManager : MonoBehaviour
         //LoadPVR("Sprite_star");
         Utils.LoadAssetAndHandle<AudioClip>("Sound_click_1", sound =>
         {
-            SoundManager.instance.AddAudioClip("Sound_click_1", Utils.OnLoadComplete(sound));
+            SoundManager.Instance.AddAudioClip("Sound_click_1", Utils.OnLoadComplete(sound));
         });
 
     }

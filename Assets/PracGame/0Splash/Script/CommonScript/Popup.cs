@@ -7,24 +7,20 @@ using DG.Tweening;
 public class Popup : MonoBehaviour
 {
     [Header("텍스트")]
-    [SerializeField] private Image iconImg;
+    [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI contentText;
 
     [Header("버튼")]
-    [SerializeField] private Button oneBtn;
-    [SerializeField] private Button twoBtn;
-    [SerializeField] private Button xBtn;
+    [SerializeField] private Button confirmBtn;
+    [SerializeField] private Button cancelBtn;
     [SerializeField] private Button dimmedBtn;
 
     [Header("실제 팝업")]
     [SerializeField] private GameObject pop;
-
-
     private void Awake()
     {
-        //oneBtn?.onClick.AddListener(() => { OneBtnFun(); });
-        //twoBtn?.onClick.AddListener(() => { TwoBtnFun(); });
-        xBtn?.onClick.AddListener(() => { XBtnFun(); });
+        confirmBtn?.onClick.AddListener(() => { ConfirmFun(); });
+        cancelBtn?.onClick.AddListener(() => { CancelFun(); });
         dimmedBtn?.onClick.AddListener(() => { DimmedBtnFun(); });
     }
 
@@ -32,93 +28,91 @@ public class Popup : MonoBehaviour
     {
         OpenAni();
     }
-    public void OpenPopup(string pContent, Action OneBtnFun, Action TwoBtnFun, Sprite pIcon = null)
+
+    public virtual void SetPopup(PopupData pData, Action OneBtnFun, Action TwoBtnFun)
     {
-        oneBtn.onClick.RemoveAllListeners();
-        twoBtn.onClick.RemoveAllListeners();
-        if (pIcon != null) iconImg.sprite = pIcon;
-        contentText.text = pContent;
+        confirmBtn.onClick.RemoveAllListeners();
+        cancelBtn.onClick.RemoveAllListeners();
+        dimmedBtn.onClick.RemoveAllListeners();
+        titleText.text = pData.titleStr;
+        contentText.text = pData.contentStr;
+        confirmBtn.GetComponent<TextMeshProUGUI>().text = pData.oneBtnStr;
+        cancelBtn.GetComponent<TextMeshProUGUI>().text = pData.twoBtnStr;
 
-        oneBtn.transform.parent.gameObject.SetActive(true);
-        oneBtn.gameObject.SetActive(true);
-        twoBtn.gameObject.SetActive(true);
-
-        oneBtn?.onClick.AddListener(() => {
+        confirmBtn?.onClick.AddListener(() => {
             OneBtnFun();
             ClosePopup();
         });
-        twoBtn?.onClick.AddListener(() => {
+        cancelBtn?.onClick.AddListener(() => {
             TwoBtnFun();
             ClosePopup();
         });
 
-        OpenAni();
+        OpenPopup();
     }
 
-    public void OpenPopup(string pContent, float pActiveTime, Sprite pIcon = null)
+    public virtual void SetPopup(PopupData pData, Action OneBtnFun)
     {
-        if (pIcon != null) iconImg.sprite = pIcon;
-        contentText.text = pContent;
+        confirmBtn.onClick.RemoveAllListeners();
 
-        oneBtn.gameObject.SetActive(false);
-        twoBtn.gameObject.SetActive(false);
-        oneBtn.transform.parent.gameObject.SetActive(false);
-        OpenTooltipAni(pActiveTime);
-    }
-    public void OpenPopup(string pContent, int pBtnCnt, Action OneBtnFun, Action TwoBtnFun, Sprite pIcon = null)
-    {
-        oneBtn.onClick.RemoveAllListeners();
-        twoBtn.onClick.RemoveAllListeners();
-        if (pIcon != null) iconImg.sprite = pIcon;
-        contentText.text = pContent;
+        titleText.text = pData.titleStr;
+        contentText.text = pData.contentStr;
+        confirmBtn.GetComponent<TextMeshProUGUI>().text = pData.oneBtnStr;
 
-        if (pBtnCnt >= 2)
-        {
-            oneBtn.transform.parent.gameObject.SetActive(true);
-            oneBtn.gameObject.SetActive(true);
-            twoBtn.gameObject.SetActive(true);
-        }
-        else if (pBtnCnt == 0)
-        {
-            oneBtn.gameObject.SetActive(false);
-            twoBtn.gameObject.SetActive(false);
-            oneBtn.transform.parent.gameObject.SetActive(false);
-        }
-        else
-        {
-            oneBtn.transform.parent.gameObject.SetActive(true);
-            oneBtn.gameObject.SetActive(true);
-            twoBtn.gameObject.SetActive(false);
-        }
-
-        oneBtn?.onClick.AddListener(() => {
+        confirmBtn?.onClick.AddListener(() => {
             OneBtnFun();
             ClosePopup();
         });
-        twoBtn?.onClick.AddListener(() => {
+    }
+    public virtual void SetPopup(string pTitle, string pContent, Action OneBtnFun, Action TwoBtnFun)
+    {
+        confirmBtn.onClick.RemoveAllListeners();
+        cancelBtn.onClick.RemoveAllListeners();
+        dimmedBtn.onClick.RemoveAllListeners();
+        titleText.text = pTitle;
+        contentText.text = pContent;
+
+        confirmBtn?.onClick.AddListener(() => {
+            OneBtnFun();
+            ClosePopup();
+        });
+        cancelBtn?.onClick.AddListener(() => {
             TwoBtnFun();
             ClosePopup();
         });
 
-        OpenAni();
+        OpenPopup();
     }
+
+    public virtual void SetPopup(string pTitle, string pContent, Action OneBtnFun)
+    {
+        confirmBtn.onClick.RemoveAllListeners();
+
+        titleText.text = pTitle;
+        contentText.text = pContent;
+
+        confirmBtn?.onClick.AddListener(() => {
+            OneBtnFun();
+            ClosePopup();
+        });
+    }
+
     public virtual void ClosePopup()
     {
         CloseAni();
     }
     #region 버튼 콜백
-    public virtual void OneBtnFun()
+    public virtual void ConfirmFun()
     {
     }
-    public virtual void TwoBtnFun()
-    {
-    }
-    public virtual void XBtnFun()
+    public virtual void CancelFun()
     {
         ClosePopup();
     }
+
     public virtual void DimmedBtnFun()
     {
+        ClosePopup();
     }
     #endregion
 
