@@ -18,7 +18,7 @@ public class UnitDamageHitState : MonoBehaviour, IState<Unit> // IState<Unit> 유
     public void Handle(Unit context) // 파라미터 context의 타입은 Unit 유지
     {
         unit = context; // 변수명 변경
-        _spriteRenderer = unit.GetComponent<SpriteRenderer>(); // 변수명 변경
+        _spriteRenderer = unit.GetComponentInChildren<SpriteRenderer>(); // 변수명 변경
         if (_spriteRenderer != null)
         {
             _originalColor = _spriteRenderer.color;

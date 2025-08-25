@@ -45,7 +45,10 @@ public class Unit : MonoBehaviour
             animator = this.transform.GetChild(0).GetComponent<Animator>();
         }
     }
-
+    private void Start()
+    {
+        unitStateManager.ChangeState(UnitState.IDLE);
+    }
 
     public virtual void TakeDamage(float rawDamage)
     {

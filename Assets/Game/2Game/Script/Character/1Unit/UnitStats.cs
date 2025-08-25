@@ -21,9 +21,6 @@ public class UnitStats
     [Header("이동속도 관련")]
     [SerializeField] private float moveSpeed;
 
-    //[Header("콜백 관련")]
-    public event Action<float, float> OnHealthChanged;
-
 
     // ... 기타 스탯
 
@@ -35,7 +32,6 @@ public class UnitStats
         {
             if (currentHp == value) return;
             currentHp = Mathf.Clamp(value, 0, maxHp);
-            OnHealthChanged?.Invoke(currentHp, maxHp);
         }
     }
     public float AttackPower { get => attackPower; set => attackPower = value; }
