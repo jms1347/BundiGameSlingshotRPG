@@ -29,7 +29,8 @@ public class UnitStateManager : StateContext<Unit, UnitState>
             i.Value?.Handle(Context); 
         }
 
-        
+        ChangeState(UnitState.IDLE);
+
     }
 
     // GetComponent<T>() 또는 AddComponent<T>()를 유연하게 처리하는 헬퍼 메서드
@@ -54,7 +55,7 @@ public class UnitStateManager : StateContext<Unit, UnitState>
 
         // 1. 공통 상태 전이 로직 (가장 높은 우선순위부터 체크)
         // 사망 상태로의 전이는 항상 최우선으로 처리
-        if (Context.Stats.CurrentHP <= 0 && !IsCurrentState(UnitState.DEATH)) // CurrentState 대신 IsCurrentState 사용
+        if (Context.Stats.CurrentHp <= 0 && !IsCurrentState(UnitState.DEATH)) // CurrentState 대신 IsCurrentState 사용
         {
             ChangeState(UnitState.DEATH);
             return;
@@ -90,6 +91,10 @@ public class UnitStateManager : StateContext<Unit, UnitState>
             if (!IsCurrentState(UnitState.IDLE))
             {
                 ChangeState(UnitState.IDLE);
+            }
+            else
+            {
+
             }
         }
 

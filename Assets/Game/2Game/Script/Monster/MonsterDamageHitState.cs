@@ -41,7 +41,7 @@ public class MonsterDamageHitState : MonoBehaviour, IState<Monster>
             // else if (monster.IsTargetInChaseRange()) monster.monsterStateManager.ChangeState(MonsterState.MOVE);
             // else monster.monsterStateManager.ChangeState(MonsterState.IDLE);
         }
-        // 죽었다면 DEATH 상태로의 전환은 Monster.CurrentHP setter에서 이미 처리됨
+        // 죽었다면 DEATH 상태로의 전환은 Monster.CurrentHp setter에서 이미 처리됨
         Debug.Log("HitRoutine terminated.");
     }
     public void Exit()

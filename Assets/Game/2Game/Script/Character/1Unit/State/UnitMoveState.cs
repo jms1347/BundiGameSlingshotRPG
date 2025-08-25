@@ -23,21 +23,21 @@ public class UnitMoveState : MonoBehaviour, IState<Unit>
 
         unit.transform.position += moveAmount;
 
-        if (direction.x != 0)
-        {
-            SpriteRenderer spriteRenderer = unit.GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
-            {
-                // 방향에 따라 스프라이트를 뒤집습니다.
-                spriteRenderer.flipX = direction.x < 0; // 왼쪽으로 가면 flipX=true (왼쪽을 바라봄)
-            }
-        }
+        //if (direction.x != 0)
+        //{
+        //    SpriteRenderer spriteRenderer = unit.GetComponent<SpriteRenderer>();
+        //    if (spriteRenderer != null)
+        //    {
+        //        // 방향에 따라 스프라이트를 뒤집습니다.
+        //        spriteRenderer.flipX = direction.x < 0; // 왼쪽으로 가면 flipX=true (왼쪽을 바라봄)
+        //    }
+        //}
     }
 
     public void Enter()
     {
         if (unit == null) return;
-        unit.Animator?.SetBool("1_Move", true);
+        //unit.Animator?.SetBool("1_Move", true);
 
 
     }
@@ -46,7 +46,7 @@ public class UnitMoveState : MonoBehaviour, IState<Unit>
     {
         if (unit == null) return;
 
-        unit.Animator?.SetBool("1_Move", false);
+        //unit.Animator?.SetBool("1_Move", false);
 
     }
 }

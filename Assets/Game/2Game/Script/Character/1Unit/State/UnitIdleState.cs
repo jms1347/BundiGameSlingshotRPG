@@ -7,7 +7,7 @@ public class UnitIdleState : MonoBehaviour, IState<Unit>
     {
         if (unit == null) return; // 변수명 변경
 
-        //unit.FindNearestTarget(unit.SearchTag);
+        unit.FindNearestTarget(unit.SearchTag);
     }
 
     public void Enter()

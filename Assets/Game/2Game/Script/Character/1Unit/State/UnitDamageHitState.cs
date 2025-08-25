@@ -33,7 +33,7 @@ public class UnitDamageHitState : MonoBehaviour, IState<Unit> // IState<Unit> 유
     {
         if (unit == null) return; // 변수명 변경
 
-        unit.Animator?.SetTrigger("3_Damagehit"); // 변수명 변경
+        //unit.Animator?.SetTrigger("3_Damagehit"); // 변수명 변경
 
         if (_hitEffectCoroutine != null)
         {

@@ -5,6 +5,7 @@ public class Unit : MonoBehaviour
     [Header("공통 매니져 변수")]
     [SerializeField] protected UnitStats stats; // UnitStats 클래스 사용 가정
     [SerializeField] protected UnitStateManager unitStateManager;
+    [SerializeField] protected UnitStatsController unitStatsController;
 
     [Header("애니메이션")]
     [SerializeField] protected Animator animator;
@@ -22,14 +23,6 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-        // 1. UnitStats 초기화
-        if (stats == null)
-        {
-            // 예시: MaxHP, 추적범위, 공격범위, 공격력, 공격속도, 방어력, 이동속도
-            stats = new UnitStats(100f, 10f, 2f, 5f, 3f, 0f, 10f);
-        }
-        //stats.InitStats(); // UnitStats 내부에서 CurrentHP = MaxHP; 등의 초기화 수행
-
         // 2. UnitStateManager 초기화
         unitStateManager = GetComponent<UnitStateManager>();
         if (unitStateManager == null)
@@ -38,16 +31,17 @@ public class Unit : MonoBehaviour
         }
         // UnitStateManager에게 이 Unit 인스턴스를 'Context'로 설정하도록 전달합니다.
         unitStateManager.SettingContext(this);
+        unitStatsController.SetUnitData(this);
 
         // 3. Animator 컴포넌트 초기화 (선택 사항)
-        if (animator == null)
-        {
-            animator = this.transform.GetChild(0).GetComponent<Animator>();
-        }
+        //if (animator == null)
+        //{
+        //    animator = this.transform.GetChild(0).GetComponent<Animator>();
+        //}
     }
     private void Start()
     {
-        unitStateManager.ChangeState(UnitState.IDLE);
+        //unitStateManager.ChangeState(UnitState.IDLE);
     }
 
     public virtual void TakeDamage(float rawDamage)
@@ -59,7 +53,7 @@ public class Unit : MonoBehaviour
 
         stats.TakeDamage(finalDamage); // UnitStats에서 체력 감소 처리 (이때 OnHealthChanged 이벤트 발생)
 
-        Debug.Log($"{gameObject.name} took {finalDamage} final damage (raw: {rawDamage}). Current HP: {stats.CurrentHP}");
+        Debug.Log($"{gameObject.name} took {finalDamage} final damage (raw: {rawDamage}). Current HP: {stats.CurrentHp}");
 
         if (IsDead())
         {

@@ -51,7 +51,7 @@ public class UnitAttackState : MonoBehaviour, IState<Unit>
     public void Enter()
     {
         if (unit == null) return;
-        unit.Animator?.SetTrigger("2_Attack");
+        //unit.Animator?.SetTrigger("2_Attack");
         _attackTimer = unit.Stats.AttackSpeed;
 
     }
@@ -72,7 +72,7 @@ public class UnitAttackState : MonoBehaviour, IState<Unit>
         }
 
         // 공격 애니메이션 재생 (공격 순간에만 재생되는 경우)
-        unit.Animator?.SetTrigger("2_Attack");
+        //unit.Animator?.SetTrigger("2_Attack");//
 
         // 타겟의 Unit 컴포넌트를 가져와 TakeDamage 메서드를 호출합니다.
         Unit targetUnit = unit.Target.GetComponent<Unit>();
