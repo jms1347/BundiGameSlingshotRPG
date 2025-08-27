@@ -80,7 +80,7 @@ public class UnitAttackState : MonoBehaviour, IState<Unit>
         {
             float damage = unit.Stats.AttackPower; // 유닛의 공격력으로 피해량 설정
             targetUnit.TakeDamage(damage); // 대상에게 피해 적용
-
+            targetUnit.UnitStateManager.ChangeState(UnitState.DAMAGEHIT);
             // 공격 이펙트나 사운드 재생 (예시)
             // AudioManager.Instance.PlaySFX("AttackSound");
             // EffectManager.Instance.SpawnEffect("AttackImpact", _unitContext.Target.position);
